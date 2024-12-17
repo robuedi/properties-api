@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('city_id')->unsigned();
             $table->string('address_line');
-            $table->string('postcode')->nullable();
             $table->timestamps();
 
             $table->foreign('city_id')->references('id')->on('cities');
