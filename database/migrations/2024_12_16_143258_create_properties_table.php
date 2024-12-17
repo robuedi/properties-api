@@ -14,11 +14,13 @@ return new class extends Migration
         Schema::create('properties', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->bigInteger('owner_id')->unsigned();
             $table->bigInteger('status_id')->unsigned();
-            $table->bigInteger('address_id')->unsigned()->nullable();
             $table->timestamps();
+
+            $table->foreign('owner_id')->references('id')->on('users');
+            $table->foreign('status_id')->references('id')->on('property_statuses');
         });
     }
 

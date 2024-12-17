@@ -271,7 +271,9 @@ class CountriesTableSeeder extends Seeder
             ['name' => 'Zimbabwe', 'code' => 'ZW'],
         ];
 
-        array_walk($countries, function(&$country){
+        $i = 1;
+        array_walk($countries, function(&$country) use (&$i){
+            $country['id'] = $i++;
             $country['created_at'] = date('Y-m-d H:i:s');
         });
 

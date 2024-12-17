@@ -192,7 +192,9 @@ class CitiesTableSeeder extends Seeder
                         ->firstOrFail()
                         ->id;
 
-        array_walk($romanianCities, function (&$city) use ($romaniaId) {
+        $i = 1;
+        array_walk($romanianCities, function (&$city) use ($romaniaId, &$i) {
+            $city['id'] = $i++;
             $city['country_id'] = $romaniaId;
             $city['created_at'] = date('Y-m-d H:i:s');
         });
