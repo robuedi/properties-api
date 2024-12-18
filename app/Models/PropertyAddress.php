@@ -10,5 +10,5 @@ class PropertyAddress extends Model
 {
     use HasFactory, PropertyAddressRelationships;
     
-    protected $table = 'property_address';
+    protected $table = 'property_addresses';
 }
