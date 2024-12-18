@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0dd996ded61ecf4ecc625404aa6a9502",
+    "content-hash": "9693901daddca260d21264efaea1dab5",
     "packages": [
         {
             "name": "brick/math",
@@ -6242,6 +6242,72 @@
             "time": "2024-11-18T16:19:46+00:00"
         },
         {
+            "name": "kevincobain2000/laravel-erd",
+            "version": "1.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kevincobain2000/laravel-erd.git",
+                "reference": "e8b1b2c146c7b8f485afb28fdb750022294ef80e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kevincobain2000/laravel-erd/zipball/e8b1b2c146c7b8f485afb28fdb750022294ef80e",
+                "reference": "e8b1b2c146c7b8f485afb28fdb750022294ef80e",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4|^8.0|^8.1|^8.2|^8.3",
+                "spatie/laravel-package-tools": "^1.4.3"
+            },
+            "require-dev": {
+                "brianium/paratest": "^6.2",
+                "nunomaduro/collision": "^5.3",
+                "orchestra/testbench": "^6.15",
+                "phpunit/phpunit": "^9.3",
+                "spatie/laravel-ray": "^1.23",
+                "vimeo/psalm": "^4.8"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Kevincobain2000\\LaravelERD\\LaravelERDServiceProvider"
+                    ],
+                    "aliases": {
+                        "LaravelERD": "Kevincobain2000\\LaravelERD\\LaravelERDFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Kevincobain2000\\LaravelERD\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pulkit Kathuria",
+                    "email": "kevincobain2000@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A tool to automatically generate interactive ERD relationships in Models for Laravel",
+            "homepage": "https://github.com/kevincobain2000/laravel-erd",
+            "keywords": [
+                "kevincobain2000",
+                "laravel erd generator",
+                "laravel-erd"
+            ],
+            "support": {
+                "issues": "https://github.com/kevincobain2000/laravel-erd/issues",
+                "source": "https://github.com/kevincobain2000/laravel-erd/tree/1.7"
+            },
+            "time": "2024-02-26T00:17:05+00:00"
+        },
+        {
             "name": "laravel/pail",
             "version": "v1.2.1",
             "source": {
@@ -8772,6 +8838,66 @@
                 }
             ],
             "time": "2024-10-09T05:16:32+00:00"
+        },
+        {
+            "name": "spatie/laravel-package-tools",
+            "version": "1.17.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-package-tools.git",
+                "reference": "9ab30fd24f677e5aa370ea4cf6b41c517d16cf85"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-package-tools/zipball/9ab30fd24f677e5aa370ea4cf6b41c517d16cf85",
+                "reference": "9ab30fd24f677e5aa370ea4cf6b41c517d16cf85",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^9.28|^10.0|^11.0",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.5",
+                "orchestra/testbench": "^7.7|^8.0|^9.0",
+                "pestphp/pest": "^1.22|^2",
+                "phpunit/phpunit": "^9.5.24|^10.5",
+                "spatie/pest-plugin-test-time": "^1.1|^2.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\LaravelPackageTools\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Tools for creating Laravel packages",
+            "homepage": "https://github.com/spatie/laravel-package-tools",
+            "keywords": [
+                "laravel-package-tools",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-package-tools/issues",
+                "source": "https://github.com/spatie/laravel-package-tools/tree/1.17.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-12-09T16:29:14+00:00"
         },
         {
             "name": "staabm/side-effects-detector",
