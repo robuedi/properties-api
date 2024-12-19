@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use App\Models\User;
-use App\Models\PropertyAddress;
+use App\Models\Property;
 
 class FakerSeeder extends Seeder
 {
@@ -19,7 +19,7 @@ class FakerSeeder extends Seeder
     {
         User::factory()->count(58)->create();
 
-        //this will make both properties and property
-        PropertyAddress::factory()->count(127)->create();
+        //this will create properties
+        Property::factory()->count(127)->create();
     }
 }

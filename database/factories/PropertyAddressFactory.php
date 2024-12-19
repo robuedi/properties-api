@@ -20,7 +20,7 @@ class PropertyAddressFactory extends Factory
     {
         return [
             'city_id'       =>  City::inRandomOrder()->firstOrFail()->id,
-            'property_id'   =>  Property::factory(),
+            'property_id'   =>  null,
             'address_line'  =>  fake()->streetAddress()
         ];
     }
