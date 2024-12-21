@@ -9,34 +9,72 @@ use Spatie\QueryBuilder\QueryBuilder;
 use App\Models\Property;
 use App\Http\Resources\v1\PropertyResource;
 use Illuminate\Http\Response;
+use App\Http\Requests\GenericListingRequest;
 
 class PropertyController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * List properties
      */
-    public function index()
+    public function index(GenericListingRequest $request)
     {
+        $allowedFields = [
+            'id', 
+            'name',
+            'slug',
+            'owner_id',
+            'status_id',
+            'created_at',
+            'updated_at',
+            'owner.id',
+            'owner.name',
+            'status.id',
+            'status.name',  
+            'address.id', 
+            'address.city_id', 
+            'address.address_line',
+        ];
+
+        $request->validate([
+            /**
+             * Fields properties
+             * @example id,name,slug,owner_id,status_id,created_at,updated_at
+             */
+            'fields[properties]' => 'string',
+
+            /**
+             * Fields owner
+             * @example id,name
+             */
+            'fields[owner]' => 'string',
+
+            /**
+             * Fields address
+             * @example id,city_id,address_line,created_at,updated_at
+             */
+            'fields[address]' => 'string',
+
+            /**
+             * Filter name
+             * @example house
+             */
+            'filter[name]' => 'string',
+            
+            /**
+             * Relationships.
+             * @example owner,status,address,address.city,address.city.country
+             */
+            'include' => 'string',
+            'sort' => 'in:created_at,-created_at',
+        ]);
+
         $properties = QueryBuilder::for(Property::class)
-            ->allowedFields([
-                'id', 
-                'name',
-                'slug',
-                'owner_id',
-                'status_id',
-                'created_at',
-                'updated_at',
-                'owner.id',
-                'owner.name',
-                'status.id',
-                'status.name',  
-                'address.id', 
-                'address.city_id', 
-                'address.address_line',
-            ])
+            ->allowedFields($allowedFields)
             ->defaultSort('-created_at')
             ->allowedIncludes(['owner', 'status', 'address', 'address.city', 'address.city.country'])
-            ->paginate()
+            ->allowedFilters(['name'])
+            ->allowedSorts('created_at', '-created_at')
+            ->paginate(request('per_page', 15))
             ->appends(request()->query());
 
         return PropertyResource::collection($properties)->response()->setStatusCode(Response::HTTP_OK);

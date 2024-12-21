@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Http\Requests\v1;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class UpdatePropertyRequest extends FormRequest
+class GenericListingRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,8 @@ class UpdatePropertyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'per_page' => 'int|min:1|max:100',
+            'page' => 'int|min:1'
         ];
     }
 }

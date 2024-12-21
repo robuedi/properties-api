@@ -2,9 +2,13 @@
 
 This project is the backend API for a properties renting app
 
+## API Endpoints UI
+
+![Properties API](/readme/properties-api.png)
+
 ## DB - ER Diagram
 
-![ER Diagram](/er-diagram.png)
+![ER Diagram](/readme/er-diagram.png)
 
 ## License
 

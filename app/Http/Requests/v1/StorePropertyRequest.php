@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\v1;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -22,7 +22,6 @@ class StorePropertyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
         ];
     }
 }
