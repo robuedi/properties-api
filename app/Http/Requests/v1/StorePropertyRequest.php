@@ -22,6 +22,7 @@ class StorePropertyRequest extends FormRequest
     public function rules(): array
     {
         return [
+            //
         ];
     }
 }

@@ -26,16 +26,24 @@ class PropertyController extends Controller
             'status_id',
             'created_at',
             'updated_at',
-            'owner.id',
-            'owner.name',
-            'status.id',
-            'status.name',  
-            'address.id', 
-            'address.city_id', 
-            'address.address_line',
+            'owners.id',
+            'owners.name',
+            'owners.email',
+            'statuses.id',
+            'statuses.name',  
+            'addresses.id', 
+            'addresses.city_id', 
+            'addresses.address_line',
+            'addresses.property_id',
         ];
 
         $request->validate([
+            /**
+             * Relationships.
+             * @example owner,status,address,address.city,address.city.country
+             */
+            'include' => 'string',
+
             /**
              * Fields properties
              * @example id,name,slug,owner_id,status_id,created_at,updated_at
@@ -46,13 +54,19 @@ class PropertyController extends Controller
              * Fields owner
              * @example id,name
              */
-            'fields[owner]' => 'string',
+            'fields[owners]' => 'string',
+
+            /**
+             * Fields addresses
+             * @example id,city_id,address_line,created_at,updated_at
+             */
+            'fields[addresses]' => 'string',
 
             /**
              * Fields address
-             * @example id,city_id,address_line,created_at,updated_at
+             * @example id,name
              */
-            'fields[address]' => 'string',
+            'fields[statuses]' => 'string',
 
             /**
              * Filter name
@@ -60,15 +74,11 @@ class PropertyController extends Controller
              */
             'filter[name]' => 'string',
             
-            /**
-             * Relationships.
-             * @example owner,status,address,address.city,address.city.country
-             */
-            'include' => 'string',
             'sort' => 'in:created_at,-created_at',
         ]);
 
         $properties = QueryBuilder::for(Property::class)
+            ->select('id', 'name', 'slug', 'status_id', 'owner_id')
             ->allowedFields($allowedFields)
             ->defaultSort('-created_at')
             ->allowedIncludes(['owner', 'status', 'address', 'address.city', 'address.city.country'])

@@ -18,9 +18,13 @@ class PropertyResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'slug' => $this->slug,
+            'id' => $this->whenHas('id'),
+            'name' => $this->whenHas('name'),
+            'slug' => $this->whenHas('slug'),
+            'owner_id' => $this->whenHas('owner_id'),
+            'status_id' => $this->whenHas('status_id'),
+            'created_at' => $this->whenHas('created_at'),
+            'updated_at' => $this->whenHas('updated_at'),
             'address' => $this->whenLoaded('address', function() {
                 return new PropertyAddressResource($this->address);
             }),
@@ -29,9 +33,7 @@ class PropertyResource extends JsonResource
             }),
             'status' => $this->whenLoaded('status', function() {
                 return new PropertyStatusResource($this->status);
-            }),
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            })
         ];
     }
 }
