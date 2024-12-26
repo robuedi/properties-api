@@ -3,6 +3,8 @@
 namespace App\Http\Requests\v1;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use App\Enums\PropertyStatus;
 
 class UpdatePropertyRequest extends FormRequest
 {
@@ -11,7 +13,7 @@ class UpdatePropertyRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +24,8 @@ class UpdatePropertyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'string|min:3',
+            'status_id' => [Rule::enum(PropertyStatus::class)]
         ];
     }
 }

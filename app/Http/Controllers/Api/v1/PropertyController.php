@@ -9,6 +9,7 @@ use Spatie\QueryBuilder\QueryBuilder;
 use App\Models\Property;
 use App\Http\Resources\v1\PropertyResource;
 use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 use App\Http\Requests\GenericListingRequest;
 
 class PropertyController extends Controller
@@ -18,25 +19,6 @@ class PropertyController extends Controller
      */
     public function index(GenericListingRequest $request)
     {
-        $allowedFields = [
-            'id', 
-            'name',
-            'slug',
-            'owner_id',
-            'status_id',
-            'created_at',
-            'updated_at',
-            'owners.id',
-            'owners.name',
-            'owners.email',
-            'statuses.id',
-            'statuses.name',  
-            'addresses.id', 
-            'addresses.city_id', 
-            'addresses.address_line',
-            'addresses.property_id',
-        ];
-
         $request->validate([
             /**
              * Relationships.
@@ -63,12 +45,6 @@ class PropertyController extends Controller
             'fields[addresses]' => 'string',
 
             /**
-             * Fields address
-             * @example id,name
-             */
-            'fields[statuses]' => 'string',
-
-            /**
              * Filter name
              * @example house
              */
@@ -79,9 +55,26 @@ class PropertyController extends Controller
 
         $properties = QueryBuilder::for(Property::class)
             ->select('id', 'name', 'slug', 'status_id', 'owner_id')
-            ->allowedFields($allowedFields)
+            ->allowedFields([
+                'id', 
+                'name',
+                'slug',
+                'owner_id',
+                'status_id',
+                'created_at',
+                'updated_at',
+                'owners.id',
+                'owners.name',
+                'owners.email',
+                'statuses.id',
+                'statuses.name',  
+                'addresses.id', 
+                'addresses.city_id', 
+                'addresses.address_line',
+                'addresses.property_id',
+            ])
             ->defaultSort('-created_at')
-            ->allowedIncludes(['owner', 'status', 'address', 'address.city', 'address.city.country'])
+            ->allowedIncludes(['owner', 'address', 'address.city', 'address.city.country'])
             ->allowedFilters(['name'])
             ->allowedSorts('created_at', '-created_at')
             ->paginate(request('per_page', 15))
@@ -91,34 +84,94 @@ class PropertyController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new property
      */
     public function store(StorePropertyRequest $request)
     {
-        //
+        $property = Property::create($request->only('name', 'owner_id', 'status_id'));
+
+        return response()
+                ->json(['data' => [
+                    'id' => $property->id
+                ]])
+                ->setStatusCode(Response::HTTP_CREATED);
     }
 
     /**
-     * Display the specified resource.
+     * Show a property
      */
-    public function show(Property $property)
+    public function show(Request $request, int $property)
     {
-        //
+        $request->validate([
+            /**
+             * Relationships.
+             * @example owner,status,address,address.city,address.city.country
+             */
+            'include' => 'string',
+
+            /**
+             * Fields properties
+             * @example id,name,slug,owner_id,status_id,created_at,updated_at
+             */
+            'fields[properties]' => 'string',
+
+            /**
+             * Fields owner
+             * @example id,name
+             */
+            'fields[owners]' => 'string',
+
+            /**
+             * Fields addresses
+             * @example id,city_id,address_line,created_at,updated_at
+             */
+            'fields[addresses]' => 'string',
+        ]);
+
+        $property = QueryBuilder::for(Property::class)
+        ->where('id', $property)
+        ->select('id', 'name', 'slug', 'status_id', 'owner_id')
+        ->allowedFields([
+            'id', 
+            'name',
+            'slug',
+            'owner_id',
+            'status_id',
+            'created_at',
+            'updated_at',
+            'owners.id',
+            'owners.name',
+            'owners.email',
+            'statuses.id',
+            'statuses.name',  
+            'addresses.id', 
+            'addresses.city_id', 
+            'addresses.address_line',
+            'addresses.property_id',
+        ])
+        ->defaultSort('-created_at')
+        ->allowedIncludes(['owner', 'address', 'address.city', 'address.city.country'])
+        ->firstOrFail();
+
+        return PropertyResource::make($property)->response()->setStatusCode(Response::HTTP_OK);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update a property
      */
     public function update(UpdatePropertyRequest $request, Property $property)
     {
-        //
+        $property->update($request->only('name', 'status_id'));
+
+        return response([])->setStatusCode(Response::HTTP_NO_CONTENT);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove a property
      */
     public function destroy(Property $property)
     {
-        //
+        $property->delete();
+        return response([])->setStatusCode(Response::HTTP_NO_CONTENT);
     }
 }

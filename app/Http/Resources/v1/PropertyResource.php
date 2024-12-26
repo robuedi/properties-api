@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\v1\PropertyAddressResource;
 use App\Http\Resources\v1\UserResource;
-use App\Http\Resources\v1\PropertyStatusResource;
 
 class PropertyResource extends JsonResource
 {
@@ -30,9 +29,6 @@ class PropertyResource extends JsonResource
             }),
             'owner' => $this->whenLoaded('owner', function() {
                 return new UserResource($this->owner);
-            }),
-            'status' => $this->whenLoaded('status', function() {
-                return new PropertyStatusResource($this->status);
             })
         ];
     }

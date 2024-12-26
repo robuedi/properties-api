@@ -7,7 +7,6 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Database\Seeders\CountriesTableSeeder;
 use Database\Seeders\CitiesTableSeeder;
-use Database\Seeders\PropertyStatusesTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -26,7 +25,6 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CountriesTableSeeder::class,
             CitiesTableSeeder::class,
-            PropertyStatusesTableSeeder::class
         ]);
     }
 }
