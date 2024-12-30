@@ -85,6 +85,8 @@ class PropertyController extends Controller
 
     /**
      * Store a new property
+     *
+     * `slug` field is set automatically using the `name` field when the status is set to <b>active</b> (value 1). Once set it can't be changed.
      */
     public function store(StorePropertyRequest $request)
     {
