@@ -13,6 +13,10 @@ This project is the backend API for a properties renting app
 Your local API Docs URL [here](http://localhost/docs/api#/)
 ![Properties API](/readme/properties-api.png)
 
+## Test cases
+
+![Properties API](/readme/testcases.png)
+
 ## DB - ER Diagram
 
 Your local DB - ER Diagram URL [here](http://localhost/erd)
