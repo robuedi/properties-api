@@ -295,6 +295,7 @@ it('deletes a property', function (): void {
     $response = $this->deleteJson(route('api.v1.properties.destroy', $property->id));
 
     $response->assertStatus(Response::HTTP_NO_CONTENT);
+    $this->assertDatabaseMissing((new Property())->getTable(), ['id' => $property->id]);
 
     //send request to delete again
     $response = $this->deleteJson(route('api.v1.properties.destroy', $property->id));
