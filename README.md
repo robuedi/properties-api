@@ -1,5 +1,7 @@
 # Properties API
 
+<a href="https://github.com/robuedi/properties-api/actions"><img src="https://github.com/robuedi/properties-api/actions/workflows/tests.yml/badge.svg" alt="Build Status"></a>
+
 This project is the backend API for a properties renting app
 
 ## Setup
