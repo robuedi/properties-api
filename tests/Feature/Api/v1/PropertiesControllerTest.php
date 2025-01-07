@@ -158,31 +158,34 @@ it('index properties right json for data', function (): void {
 });
 
 
-it('store a valid property', function (): void {
+it('stores a valid property', function (): void {
     $user = User::factory()->create();
 
     //send request to create
-    $response = $this->postJson(route('api.v1.properties.store'), [
+    $recordData = [
         'name' => 'Great Villa',
         'owner_id' => $user->id,
         'status_id' => fake()->randomElement(PropertyStatus::values()),
-    ]);
+    ];
+    $response = $this->postJson(route('api.v1.properties.store'), $recordData);
 
-    $response->assertStatus(201);
+    $response->assertStatus(Response::HTTP_CREATED);
     $response->assertHeader('Content-Type', 'application/json');
     $response->assertJson([
         'data' => [
             'id' => 1,
         ]
     ]);
+
+    $this->assertDatabaseHas((new Property())->getTable(), $recordData);
 });
 
-it('store failed for empty property', function (): void {
+it('fails to store an empty property', function (): void {
 
     //send request to create
     $response = $this->postJson(route('api.v1.properties.store'), []);
 
-    $response->assertStatus(422);
+    $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     $response->assertHeader('Content-Type', 'application/json');
     $response->assertJson([
         'message' => 'The name field is required. (and 2 more errors)',
@@ -194,7 +197,7 @@ it('store failed for empty property', function (): void {
     ]);
 });
 
-it('store failed for wrong values property', function (): void {
+it('fails to store wrong values for a property', function (): void {
 
     //send request to create
     $response = $this->postJson(route('api.v1.properties.store'), [
@@ -203,7 +206,7 @@ it('store failed for wrong values property', function (): void {
         'status_id' => 91,
     ]);
 
-    $response->assertStatus(422);
+    $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     $response->assertHeader('Content-Type', 'application/json');
     $response->assertJson([
         'message' => 'The name field must be at least 3 characters. (and 2 more errors)',
@@ -213,4 +216,87 @@ it('store failed for wrong values property', function (): void {
             'status_id' => ['The selected status id is invalid.']
         ]
     ]);
+});
+
+it('updates a property', function (): void {
+    $user = User::factory()->create();
+    $propertyData = [
+        'name' => 'Sea Villa',
+        'owner_id' => $user->id,
+        'status_id' => PropertyStatus::Active->value,
+    ];
+
+    $property = Property::factory()->create($propertyData);
+
+    //send request to update
+    $failUser = User::factory()->create();
+    $response = $this->putJson(route('api.v1.properties.update', $property->id), [
+        'id' => '5',
+        'name' => 'Moon Villa',
+        'owner_id' => $failUser->id,
+        'status_id' => PropertyStatus::Inactive->value,
+    ]);
+
+    $response->assertStatus(Response::HTTP_NO_CONTENT);
+
+    //the correct data
+    $this->assertDatabaseHas((new Property())->getTable(), [
+        'id' => $property->id,
+        'name' => 'Moon Villa',
+        'owner_id' => $user->id,
+        'status_id' => PropertyStatus::Inactive->value,
+    ]);
+});
+
+it('returns 404 for update on a non-existing property', function (): void {
+   
+    $user = User::factory()->create();
+    $response = $this->putJson(route('api.v1.properties.update', 1), [
+        'name' => 'Moon Villa',
+        'owner_id' => $user->id,
+        'status_id' => PropertyStatus::Inactive->value,
+    ]);
+
+    $response->assertStatus(Response::HTTP_NOT_FOUND);
+});
+
+it('shows a property', function (): void {
+    $user = User::factory()->create();
+    $propertyData = [
+        'name' => 'Sea Villa',
+        'owner_id' => $user->id,
+        'status_id' => PropertyStatus::Active->value,
+    ];
+
+    $property = Property::factory()->create($propertyData);
+
+    //send request to show
+    $response = $this->getJson(route('api.v1.properties.show', $property->id));
+
+    $response->assertStatus(Response::HTTP_OK)
+    ->assertJson(['data' => 
+        [
+            ...['id' => $property->id], 
+            ...$propertyData]
+        ]
+    );
+});
+
+it('returns 404 for request to show a non-existing property', function (): void {
+    //send request to show
+    $response = $this->getJson(route('api.v1.properties.show', 1));
+    $response->assertStatus(Response::HTTP_NOT_FOUND);
+});
+
+it('deletes a property', function (): void {
+    $property = Property::factory()->create();
+
+    //send request to delete
+    $response = $this->deleteJson(route('api.v1.properties.destroy', $property->id));
+
+    $response->assertStatus(Response::HTTP_NO_CONTENT);
+
+    //send request to delete again
+    $response = $this->deleteJson(route('api.v1.properties.destroy', $property->id));
+    $response->assertStatus(Response::HTTP_NOT_FOUND);
 });

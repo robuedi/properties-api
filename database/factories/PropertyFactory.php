@@ -22,7 +22,7 @@ class PropertyFactory extends Factory
     {
         return [
             'name'  =>  fake()->randomElement([ucfirst(implode(' ', fake()->words(fake()->numberBetween(1, 7)))), fake()->streetName()]).' '.fake()->randomElement(['Grove', 'Manor', 'Villa', 'House']),
-            'owner_id'   =>  User::inRandomOrder()->firstOrFail()->id,
+            'owner_id'   =>  User::inRandomOrder()->first()?->id ?? User::factory()->create()->id,
             'status_id'  =>  fake()->randomElement(PropertyStatus::values()),
         ];
     }
