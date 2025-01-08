@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Relationships\CityRelationships;
+use Illuminate\Database\Eloquent\Model;
 
 class City extends Model
 {

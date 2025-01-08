@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\v1;
 
+use App\Enums\PropertyStatus;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use App\Enums\PropertyStatus;
 
 class UpdatePropertyRequest extends FormRequest
 {
@@ -25,7 +25,7 @@ class UpdatePropertyRequest extends FormRequest
     {
         return [
             'name' => 'string|min:3',
-            'status_id' => [Rule::enum(PropertyStatus::class)]
+            'status_id' => [Rule::enum(PropertyStatus::class)],
         ];
     }
 }

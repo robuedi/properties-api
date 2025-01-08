@@ -2,11 +2,11 @@
 
 namespace App\Models\Relationships;
 
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use App\Models\Property;
 use App\Models\City;
+use App\Models\Property;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-trait PropertyAddressRelationships 
+trait PropertyAddressRelationships
 {
     public function property(): BelongsTo
     {

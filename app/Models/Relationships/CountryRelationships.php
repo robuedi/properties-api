@@ -2,10 +2,10 @@
 
 namespace App\Models\Relationships;
 
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\City;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-trait CountryRelationships 
+trait CountryRelationships
 {
     public function cities(): HasMany
     {

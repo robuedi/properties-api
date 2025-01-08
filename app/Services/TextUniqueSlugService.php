@@ -4,9 +4,9 @@ namespace App\Services;
 
 use Illuminate\Support\Str;
 
-class TextUniqueSlugService 
+class TextUniqueSlugService
 {
-    public function getSlug(string $text) : string
+    public function getSlug(string $text): string
     {
         // get current time in milliseconds
         $milliseconds = round(microtime(true) * 1000);

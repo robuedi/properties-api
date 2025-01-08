@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\GenericListingRequest;
 use App\Http\Requests\v1\StorePropertyRequest;
 use App\Http\Requests\v1\UpdatePropertyRequest;
-use Spatie\QueryBuilder\QueryBuilder;
-use App\Models\Property;
 use App\Http\Resources\v1\PropertyResource;
-use Illuminate\Http\Response;
+use App\Models\Property;
 use Illuminate\Http\Request;
-use App\Http\Requests\GenericListingRequest;
+use Illuminate\Http\Response;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class PropertyController extends Controller
 {
@@ -22,41 +22,46 @@ class PropertyController extends Controller
         $request->validate([
             /**
              * Relationships.
+             *
              * @example owner,status,address,address.city,address.city.country
              */
             'include' => 'string',
 
             /**
              * Fields properties
+             *
              * @example id,name,slug,owner_id,status_id,created_at,updated_at
              */
             'fields[properties]' => 'string',
 
             /**
              * Fields owner
+             *
              * @example id,name
              */
             'fields[owners]' => 'string',
 
             /**
              * Fields addresses
+             *
              * @example id,city_id,address_line,created_at,updated_at
              */
             'fields[addresses]' => 'string',
 
             /**
              * Filter name
+             *
              * @example house
              */
             'filter[name]' => 'string',
-            
+
             'sort' => 'in:created_at,-created_at',
         ]);
 
         $properties = QueryBuilder::for(Property::class)
             ->select('id', 'name', 'slug', 'status_id', 'owner_id')
             ->allowedFields([
-                'id', 
+                'id',
                 'name',
                 'slug',
                 'owner_id',
@@ -67,9 +72,9 @@ class PropertyController extends Controller
                 'owners.name',
                 'owners.email',
                 'statuses.id',
-                'statuses.name',  
-                'addresses.id', 
-                'addresses.city_id', 
+                'statuses.name',
+                'addresses.id',
+                'addresses.city_id',
                 'addresses.address_line',
                 'addresses.property_id',
             ])
@@ -93,10 +98,10 @@ class PropertyController extends Controller
         $property = Property::create($request->only('name', 'owner_id', 'status_id'));
 
         return response()
-                ->json(['data' => [
-                    'id' => $property->id
-                ]])
-                ->setStatusCode(Response::HTTP_CREATED);
+            ->json(['data' => [
+                'id' => $property->id,
+            ]])
+            ->setStatusCode(Response::HTTP_CREATED);
     }
 
     /**
@@ -107,53 +112,57 @@ class PropertyController extends Controller
         $request->validate([
             /**
              * Relationships.
+             *
              * @example owner,status,address,address.city,address.city.country
              */
             'include' => 'string',
 
             /**
              * Fields properties
+             *
              * @example id,name,slug,owner_id,status_id,created_at,updated_at
              */
             'fields[properties]' => 'string',
 
             /**
              * Fields owner
+             *
              * @example id,name
              */
             'fields[owners]' => 'string',
 
             /**
              * Fields addresses
+             *
              * @example id,city_id,address_line,created_at,updated_at
              */
             'fields[addresses]' => 'string',
         ]);
 
         $property = QueryBuilder::for(Property::class)
-        ->where('id', $property)
-        ->select('id', 'name', 'slug', 'status_id', 'owner_id')
-        ->allowedFields([
-            'id', 
-            'name',
-            'slug',
-            'owner_id',
-            'status_id',
-            'created_at',
-            'updated_at',
-            'owners.id',
-            'owners.name',
-            'owners.email',
-            'statuses.id',
-            'statuses.name',  
-            'addresses.id', 
-            'addresses.city_id', 
-            'addresses.address_line',
-            'addresses.property_id',
-        ])
-        ->defaultSort('-created_at')
-        ->allowedIncludes(['owner', 'address', 'address.city', 'address.city.country'])
-        ->firstOrFail();
+            ->where('id', $property)
+            ->select('id', 'name', 'slug', 'status_id', 'owner_id')
+            ->allowedFields([
+                'id',
+                'name',
+                'slug',
+                'owner_id',
+                'status_id',
+                'created_at',
+                'updated_at',
+                'owners.id',
+                'owners.name',
+                'owners.email',
+                'statuses.id',
+                'statuses.name',
+                'addresses.id',
+                'addresses.city_id',
+                'addresses.address_line',
+                'addresses.property_id',
+            ])
+            ->defaultSort('-created_at')
+            ->allowedIncludes(['owner', 'address', 'address.city', 'address.city.country'])
+            ->firstOrFail();
 
         return PropertyResource::make($property)->response()->setStatusCode(Response::HTTP_OK);
     }
@@ -174,6 +183,7 @@ class PropertyController extends Controller
     public function destroy(Property $property)
     {
         $property->delete();
+
         return response([])->setStatusCode(Response::HTTP_NO_CONTENT);
     }
 }

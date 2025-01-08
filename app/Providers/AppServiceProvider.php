@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
-use App\Services\TextUniqueSlugService;
 use App\Repositories\PropertyRepository;
+use App\Services\TextUniqueSlugService;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(TextUniqueSlugService::class, TextUniqueSlugService::class);
 
-        //repositories
+        // repositories
         $this->app->bind(PropertyRepository::class, PropertyRepository::class);
     }
 

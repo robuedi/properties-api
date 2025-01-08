@@ -4,8 +4,6 @@ namespace App\Http\Resources\v1;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\v1\PropertyAddressResource;
-use App\Http\Resources\v1\UserResource;
 
 class PropertyResource extends JsonResource
 {
@@ -24,12 +22,12 @@ class PropertyResource extends JsonResource
             'status_id' => $this->whenHas('status_id'),
             'created_at' => $this->whenHas('created_at'),
             'updated_at' => $this->whenHas('updated_at'),
-            'address' => $this->whenLoaded('address', function() {
+            'address' => $this->whenLoaded('address', function () {
                 return new PropertyAddressResource($this->address);
             }),
-            'owner' => $this->whenLoaded('owner', function() {
+            'owner' => $this->whenLoaded('owner', function () {
                 return new UserResource($this->owner);
-            })
+            }),
         ];
     }
 }

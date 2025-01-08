@@ -2,10 +2,10 @@
 
 namespace App\Models\Relationships;
 
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Property;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-trait UserRelationships 
+trait UserRelationships
 {
     public function properties(): HasMany
     {

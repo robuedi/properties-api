@@ -5,8 +5,6 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Database\Seeders\CountriesTableSeeder;
-use Database\Seeders\CitiesTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {

@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Models\Relationships\PropertyRelationships;
 use App\Enums\PropertyStatus;
+use App\Models\Relationships\PropertyRelationships;
 use App\Observers\PropertyObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 #[ObservedBy([PropertyObserver::class])]
 class Property extends Model
@@ -27,6 +27,6 @@ class Property extends Model
         'name',
         'owner_id',
         'status_id',
-        'slug'
+        'slug',
     ];
 }

@@ -272,7 +272,7 @@ class CountriesTableSeeder extends Seeder
         ];
 
         $i = 1;
-        array_walk($countries, function(&$country) use (&$i){
+        array_walk($countries, function (&$country) use (&$i) {
             $country['id'] = $i++;
             $country['created_at'] = date('Y-m-d H:i:s');
         });

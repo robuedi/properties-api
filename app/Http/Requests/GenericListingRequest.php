@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class GenericListingRequest extends FormRequest
 {
@@ -24,7 +23,7 @@ class GenericListingRequest extends FormRequest
     {
         return [
             'per_page' => 'int|min:1|max:100',
-            'page' => 'int|min:1'
+            'page' => 'int|min:1',
         ];
     }
 }

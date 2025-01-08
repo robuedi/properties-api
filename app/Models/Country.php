@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Relationships\CountryRelationships;
+use Illuminate\Database\Eloquent\Model;
 
 class Country extends Model
 {

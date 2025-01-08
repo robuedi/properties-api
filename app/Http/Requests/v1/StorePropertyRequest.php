@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\v1;
 
+use App\Enums\PropertyStatus;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use App\Enums\PropertyStatus;
 
 class StorePropertyRequest extends FormRequest
 {
@@ -26,7 +26,7 @@ class StorePropertyRequest extends FormRequest
         return [
             'name' => 'required|string|min:3',
             'owner_id' => 'required|exists:users,id',
-            'status_id' => ['required', Rule::enum(PropertyStatus::class)]
+            'status_id' => ['required', Rule::enum(PropertyStatus::class)],
         ];
     }
 }

@@ -20,177 +20,136 @@ class CitiesTableSeeder extends Seeder
         Schema::enableForeignKeyConstraints();
 
         $romanianCities = [
-            252 => 
-            array (
+            252 => [
                 'name' => 'Alba Iulia',
-            ),
-            253 => 
-            array (
+            ],
+            253 => [
                 'name' => 'Arad',
-            ),
-            254 => 
-            array (
+            ],
+            254 => [
                 'name' => 'Oradea',
-            ),
-            255 => 
-            array (
+            ],
+            255 => [
                 'name' => 'Bacau',
-            ),
-            256 => 
-            array (
+            ],
+            256 => [
                 'name' => 'Baia Mare',
-            ),
-            257 => 
-            array (
+            ],
+            257 => [
                 'name' => 'Bistrita',
-            ),
-            258 => 
-            array (
+            ],
+            258 => [
                 'name' => 'Botosani',
-            ),
-            259 => 
-            array (
+            ],
+            259 => [
                 'name' => 'Bucuresti',
-            ),
-            260 => 
-            array (
+            ],
+            260 => [
                 'name' => 'Brasov',
-            ),
-            261 => 
-            array (
+            ],
+            261 => [
                 'name' => 'Braila',
-            ),
-            262 => 
-            array (
+            ],
+            262 => [
                 'name' => 'Buzau',
-            ),
-            263 => 
-            array (
+            ],
+            263 => [
                 'name' => 'Drobeta-Turnu Severin',
-            ),
-            264 => 
-            array (
+            ],
+            264 => [
                 'name' => 'Deva',
-            ),
-            265 => 
-            array (
+            ],
+            265 => [
                 'name' => 'Timisoara',
-            ),
-            266 => 
-            array (
+            ],
+            266 => [
                 'name' => 'Focsani',
-            ),
-            267 => 
-            array (
+            ],
+            267 => [
                 'name' => 'Galati',
-            ),
-            268 => 
-            array (
+            ],
+            268 => [
                 'name' => 'Giurgiu',
-            ),
-            269 => 
-            array (
+            ],
+            269 => [
                 'name' => 'Constanta',
-            ),
-            270 => 
-            array (
+            ],
+            270 => [
                 'name' => 'Craiova',
-            ),
-            271 => 
-            array (
+            ],
+            271 => [
                 'name' => 'Calarasi',
-            ),
-            272 => 
-            array (
+            ],
+            272 => [
                 'name' => 'Cluj-Napoca',
-            ),
-            273 => 
-            array (
+            ],
+            273 => [
                 'name' => 'Rimnicu Vilcea',
-            ),
-            274 => 
-            array (
+            ],
+            274 => [
                 'name' => 'Resita',
-            ),
-            275 => 
-            array (
+            ],
+            275 => [
                 'name' => 'Miercurea-Ciuc',
-            ),
-            276 => 
-            array (
+            ],
+            276 => [
                 'name' => 'Pitesti',
-            ),
-            277 => 
-            array (
+            ],
+            277 => [
                 'name' => 'Piatra Neamt',
-            ),
-            278 => 
-            array (
+            ],
+            278 => [
                 'name' => 'Ploiesti',
-            ),
-            279 => 
-            array (
+            ],
+            279 => [
                 'name' => 'Satu Mare',
-            ),
-            280 => 
-            array (
+            ],
+            280 => [
                 'name' => 'Sfantu-Gheorghe',
-            ),
-            281 => 
-            array (
+            ],
+            281 => [
                 'name' => 'Slatina',
-            ),
-            282 => 
-            array (
+            ],
+            282 => [
                 'name' => 'Slobozia',
-            ),
-            283 => 
-            array (
+            ],
+            283 => [
                 'name' => 'Suceava',
-            ),
-            284 => 
-            array (
+            ],
+            284 => [
                 'name' => 'Targovişte',
-            ),
-            285 => 
-            array (
+            ],
+            285 => [
                 'name' => 'Tirgu Mures',
-            ),
-            286 => 
-            array (
+            ],
+            286 => [
                 'name' => 'Tirgu-Jiu',
-            ),
-            287 => 
-            array (
+            ],
+            287 => [
                 'name' => 'Tulcea',
-            ),
-            288 => 
-            array (
+            ],
+            288 => [
                 'name' => 'Vaslui',
-            ),
-            289 => 
-            array (
+            ],
+            289 => [
                 'name' => 'Sibiu',
-            ),
-            290 => 
-            array (
+            ],
+            290 => [
                 'name' => 'Iasi',
-            ),
-            291 => 
-            array (
+            ],
+            291 => [
                 'name' => 'Alexandria',
-            ),
-            292 => 
-            array (
+            ],
+            292 => [
                 'name' => 'Zalau',
-            ),
+            ],
         ];
 
         $romaniaId = DB::table('countries')
-                        ->where('code', 'RO')
-                        ->select('id')
-                        ->firstOrFail()
-                        ->id;
+            ->where('code', 'RO')
+            ->select('id')
+            ->firstOrFail()
+            ->id;
 
         $i = 1;
         array_walk($romanianCities, function (&$city) use ($romaniaId, &$i) {

@@ -2,9 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\City;
-use App\Models\Property;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\PropertyAddress>
@@ -19,9 +18,9 @@ class PropertyAddressFactory extends Factory
     public function definition(): array
     {
         return [
-            'city_id'       =>  City::inRandomOrder()->firstOrFail()->id,
-            'property_id'   =>  null,
-            'address_line'  =>  fake()->streetAddress()
+            'city_id' => City::inRandomOrder()->firstOrFail()->id,
+            'property_id' => null,
+            'address_line' => fake()->streetAddress(),
         ];
     }
 }
