@@ -14,9 +14,9 @@ test('users can authenticate and get their profile data', function () {
     $response = $this->getJson(route('authenticated.user'));
 
     $response
-    ->assertStatus(Response::HTTP_OK)
-    ->assertJsonPath('user.name', $user->name)
-    ->assertJsonPath('user.email', $user->email);
+        ->assertStatus(Response::HTTP_OK)
+        ->assertJsonPath('user.name', $user->name)
+        ->assertJsonPath('user.email', $user->email);
 });
 
 test('users not authenticated can\'t get profile data', function () {
