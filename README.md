@@ -21,11 +21,6 @@ Your local API Docs URL [here](http://localhost/docs/api#/)
 
 ![Properties API](/readme/testcases.png)
 
-## DB - ER Diagram
-
-Your local DB - ER Diagram URL [here](http://localhost/erd)
-![ER Diagram](/readme/er-diagram.png)
-
 ## License
 
 Copyright (C) Eduard Cristian Robu - All Rights Reserved
