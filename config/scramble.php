@@ -84,4 +84,6 @@ return [
     ],
 
     'extensions' => [],
+    'authenticated_by_default' => true,
+
 ];
