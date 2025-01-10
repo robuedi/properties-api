@@ -19,7 +19,7 @@ class NewPasswordController extends Controller
 {
     /**
      * Password change
-     * 
+     *
      * Handle an incoming new password request.
      *
      * @throws \Illuminate\Validation\ValidationException
