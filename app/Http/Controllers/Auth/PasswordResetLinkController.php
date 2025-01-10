@@ -9,11 +9,13 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\ValidationException;
 
 /**
- * @tags Auth
+ * @tags Auth (JWT)
  */
 class PasswordResetLinkController extends Controller
 {
     /**
+     * Password reset link
+     * 
      * Handle an incoming password reset link request.
      *
      * @throws \Illuminate\Validation\ValidationException

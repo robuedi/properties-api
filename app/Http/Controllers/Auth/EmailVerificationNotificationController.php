@@ -8,11 +8,13 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 /**
- * @tags Auth
+ * @tags Auth (JWT)
  */
 class EmailVerificationNotificationController extends Controller
 {
     /**
+     * Email verification link
+     * 
      * Send a new email verification notification.
      */
     public function store(Request $request): JsonResponse|RedirectResponse

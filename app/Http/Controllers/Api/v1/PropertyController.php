@@ -16,6 +16,8 @@ class PropertyController extends Controller
 {
     /**
      * List properties
+     * 
+     * @unauthenticated
      */
     public function index(GenericListingRequest $request)
     {
@@ -106,6 +108,8 @@ class PropertyController extends Controller
 
     /**
      * Show a property
+     * 
+     * @unauthenticated
      */
     public function show(Request $request, int $property)
     {

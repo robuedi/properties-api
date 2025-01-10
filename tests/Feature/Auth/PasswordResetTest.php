@@ -9,7 +9,7 @@ test('reset password link can be requested', function () {
 
     $user = User::factory()->create();
 
-    $this->post(route('password.email'), ['email' => $user->email]);
+    $this->post(route('auth.password.email'), ['email' => $user->email]);
 
     Notification::assertSentTo($user, ResetPassword::class);
 });
@@ -19,10 +19,10 @@ test('password can be reset with valid token', function () {
 
     $user = User::factory()->create();
 
-    $this->post(route('password.email'), ['email' => $user->email]);
+    $this->post(route('auth.password.email'), ['email' => $user->email]);
 
     Notification::assertSentTo($user, ResetPassword::class, function (object $notification) use ($user) {
-        $response = $this->post(route('password.store'), [
+        $response = $this->post(route('auth.password.store'), [
             'token' => $notification->token,
             'email' => $user->email,
             'password' => 'password',

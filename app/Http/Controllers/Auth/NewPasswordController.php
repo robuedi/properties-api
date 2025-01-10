@@ -13,11 +13,13 @@ use Illuminate\Validation\Rules;
 use Illuminate\Validation\ValidationException;
 
 /**
- * @tags Auth
+ * @tags Auth (JWT)
  */
 class NewPasswordController extends Controller
 {
     /**
+     * Password change
+     * 
      * Handle an incoming new password request.
      *
      * @throws \Illuminate\Validation\ValidationException
