@@ -154,7 +154,7 @@ it('index properties right json for data', function (): void {
             ]);
 });
 
-it('stores a valid property', function (): void {
+it('fails to stores a valid property when unautenticated (unauthorized:401)', function (): void {
     $user = User::factory()->create();
 
     // send request to create
@@ -164,6 +164,19 @@ it('stores a valid property', function (): void {
         'status_id' => fake()->randomElement(PropertyStatus::values()),
     ];
     $response = $this->postJson(route('api.v1.properties.store'), $recordData);
+
+    $response->assertUnauthorized();
+});
+
+it('stores a valid property', function (): void {
+    $user = User::factory()->create();
+
+    // send request to create
+    $recordData = [
+        'name' => 'Great Villa',
+        'status_id' => fake()->randomElement(PropertyStatus::values()),
+    ];
+    $response = $this->actingAs($user)->postJson(route('api.v1.properties.store'), $recordData);
 
     $response->assertStatus(Response::HTTP_CREATED);
     $response->assertHeader('Content-Type', 'application/json');
@@ -176,39 +189,61 @@ it('stores a valid property', function (): void {
     $this->assertDatabaseHas((new Property)->getTable(), $recordData);
 });
 
-it('fails to store an empty property', function (): void {
+it('stores a valid property with the right user id even if different user id is sent', function (): void {
+    $user = User::factory()->create();
+    $testUser = User::factory()->create();
 
     // send request to create
-    $response = $this->postJson(route('api.v1.properties.store'), []);
+    $recordData = [
+        'name' => 'Great Villa',
+        'owner_id' => $testUser->id,
+        'status_id' => fake()->randomElement(PropertyStatus::values()),
+    ];
+    $response = $this->actingAs($user)->postJson(route('api.v1.properties.store'), $recordData);
+
+    $response->assertStatus(Response::HTTP_CREATED);
+    $response->assertHeader('Content-Type', 'application/json');
+    $response->assertJson([
+        'data' => [
+            'id' => 1,
+        ],
+    ]);
+
+    $this->assertDatabaseHas((new Property)->getTable(), [...$recordData, ...['owner_id' => $user->id]]);
+});
+
+it('fails to store an empty property', function (): void {
+    $user = User::factory()->create();
+
+    // send request to create
+    $response = $this->actingAs($user)->postJson(route('api.v1.properties.store'), []);
 
     $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     $response->assertHeader('Content-Type', 'application/json');
     $response->assertJson([
-        'message' => 'The name field is required. (and 2 more errors)',
+        'message' => 'The name field is required. (and 1 more error)',
         'errors' => [
             'name' => ['The name field is required.'],
-            'owner_id' => ['The owner id field is required.'],
             'status_id' => ['The status id field is required.'],
         ],
     ]);
 });
 
 it('fails to store wrong values for a property', function (): void {
+    $user = User::factory()->create();
 
     // send request to create
-    $response = $this->postJson(route('api.v1.properties.store'), [
+    $response = $this->actingAs($user)->postJson(route('api.v1.properties.store'), [
         'name' => 'a',
-        'owner_id' => 7,
         'status_id' => 91,
     ]);
 
     $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     $response->assertHeader('Content-Type', 'application/json');
     $response->assertJson([
-        'message' => 'The name field must be at least 3 characters. (and 2 more errors)',
+        'message' => 'The name field must be at least 3 characters. (and 1 more error)',
         'errors' => [
             'name' => ['The name field must be at least 3 characters.'],
-            'owner_id' => ['The selected owner id is invalid.'],
             'status_id' => ['The selected status id is invalid.'],
         ],
     ]);

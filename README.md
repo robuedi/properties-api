@@ -19,7 +19,7 @@ Your local API Docs URL [here](http://localhost/docs/api#/)
 
 ## Test cases
 
-![Properties API](/readme/testcases.png)
+![Properties API](/readme/tests.png)
 
 ## License
 

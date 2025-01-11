@@ -25,7 +25,6 @@ class StorePropertyRequest extends FormRequest
     {
         return [
             'name' => 'required|string|min:3',
-            'owner_id' => 'required|exists:users,id',
             'status_id' => ['required', Rule::enum(PropertyStatus::class)],
         ];
     }

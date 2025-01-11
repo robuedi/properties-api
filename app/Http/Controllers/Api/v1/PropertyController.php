@@ -11,9 +11,16 @@ use App\Models\Property;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Spatie\QueryBuilder\QueryBuilder;
+use App\Services\Properties\PropertyRepositoryService;
 
 class PropertyController extends Controller
 {
+    public function __construct()
+    {
+        //the user needs to be logged in for these methods to be accessed
+        $this->middleware('auth:api')->only('store');
+    }
+
     /**
      * List properties
      *
@@ -95,9 +102,10 @@ class PropertyController extends Controller
      *
      * `slug` field is set automatically using the `name` field when the status is set to <b>active</b> (value 1). Once set it can't be changed.
      */
-    public function store(StorePropertyRequest $request)
+    public function store(StorePropertyRequest $request, PropertyRepositoryService $propertyRepositoryService)
     {
-        $property = Property::create($request->only('name', 'owner_id', 'status_id'));
+        //store the new property
+        $property = $propertyRepositoryService->authUserRequestCreateProperty();
 
         return response()
             ->json(['data' => [
