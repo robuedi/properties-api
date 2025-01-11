@@ -4,7 +4,7 @@ namespace App\Services\Properties;
 
 use App\Models\Property;
 
-class PropertyRepositoryService 
+class PropertyRepositoryService
 {
     public function authUserRequestCreateProperty()
     {

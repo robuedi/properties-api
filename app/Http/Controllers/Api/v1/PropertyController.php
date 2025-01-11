@@ -8,16 +8,16 @@ use App\Http\Requests\v1\StorePropertyRequest;
 use App\Http\Requests\v1\UpdatePropertyRequest;
 use App\Http\Resources\v1\PropertyResource;
 use App\Models\Property;
+use App\Services\Properties\PropertyRepositoryService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Spatie\QueryBuilder\QueryBuilder;
-use App\Services\Properties\PropertyRepositoryService;
 
 class PropertyController extends Controller
 {
     public function __construct()
     {
-        //the user needs to be logged in for these methods to be accessed
+        // the user needs to be logged in for these methods to be accessed
         $this->middleware('auth:api')->only('store');
     }
 
@@ -104,7 +104,7 @@ class PropertyController extends Controller
      */
     public function store(StorePropertyRequest $request, PropertyRepositoryService $propertyRepositoryService)
     {
-        //store the new property
+        // store the new property
         $property = $propertyRepositoryService->authUserRequestCreateProperty();
 
         return response()
