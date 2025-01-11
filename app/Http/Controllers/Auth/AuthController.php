@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,8 +25,8 @@ class AuthController extends Controller
     }
 
     /**
-     * Login 
-     * 
+     * Login
+     *
      * Get a JWT via given credentials.
      */
     public function login(LoginRequest $request): JsonResponse
@@ -42,18 +42,17 @@ class AuthController extends Controller
 
     /**
      * Authenticated user data
-     * 
+     *
      * Get the authenticated User.
      */
-    public function me() : JsonResponse
+    public function me(): JsonResponse
     {
         return response()->json(auth()->user());
     }
 
-
     /**
-     * Logout 
-     * 
+     * Logout
+     *
      * Log the user out (Invalidate the token).
      */
     public function logout(Request $request): Response
@@ -65,10 +64,10 @@ class AuthController extends Controller
 
     /**
      * Token refresh
-     * 
+     *
      * Refresh a token.
      */
-    public function refresh() : JsonResponse
+    public function refresh(): JsonResponse
     {
         return $this->respondWithToken(auth()->refresh(true, true));
     }
@@ -76,8 +75,7 @@ class AuthController extends Controller
     /**
      * Get the token array structure.
      *
-     * @param  string $token
-     *
+     * @param  string  $token
      * @return \Illuminate\Http\JsonResponse
      */
     protected function respondWithToken($token)
@@ -85,7 +83,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in' => auth()->factory()->getTTL() * 60,
         ]);
     }
 }

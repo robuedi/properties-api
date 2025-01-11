@@ -11,8 +11,8 @@ test('users can authenticate and get their profile data', function () {
         'password' => 'password',
     ]);
 
-    $response = $this->withHeader('Authorization', 'Bearer ' . $response_->json('authorization.token'))
-                    ->getJson(route('auth.me'));
+    $response = $this->withHeader('Authorization', 'Bearer '.$response_->json('authorization.token'))
+        ->getJson(route('auth.me'));
 
     $response
         ->assertStatus(Response::HTTP_OK)
@@ -36,11 +36,11 @@ test('token can be refreshed', function () {
     ]);
 
     $oldToken = $response1->json('access_token');
-    $response2 = $this->withHeader('Authorization', 'Bearer ' . $oldToken)
+    $response2 = $this->withHeader('Authorization', 'Bearer '.$oldToken)
         ->postJson(route('auth.refresh'));
 
     $response2->assertStatus(Response::HTTP_OK)
-                ->assertJsonStructure(['access_token', 'token_type', 'expires_in']);
+        ->assertJsonStructure(['access_token', 'token_type', 'expires_in']);
 
     expect($oldToken)->not->toBe($response2->json('access_token'));
 });

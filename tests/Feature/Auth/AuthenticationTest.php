@@ -36,16 +36,16 @@ test('users can logout', function () {
         'password' => 'password',
     ]);
 
-    $response2 = $this->withHeader('Authorization', 'Bearer ' . $response1->json('authorization.token'))
-                    ->getJson(route('auth.me'));
+    $response2 = $this->withHeader('Authorization', 'Bearer '.$response1->json('authorization.token'))
+        ->getJson(route('auth.me'));
 
     $response2
         ->assertStatus(Response::HTTP_OK);
 
-    $response3 = $this->withHeader('Authorization', 'Bearer ' . $response1->json('authorization.token'))->post(route('auth.logout'));
+    $response3 = $this->withHeader('Authorization', 'Bearer '.$response1->json('authorization.token'))->post(route('auth.logout'));
 
-    $response4 = $this->withHeader('Authorization', 'Bearer ' . $response1->json('authorization.token'))
-                    ->getJson(route('auth.me'));
+    $response4 = $this->withHeader('Authorization', 'Bearer '.$response1->json('authorization.token'))
+        ->getJson(route('auth.me'));
 
     $response4
         ->assertUnauthorized();

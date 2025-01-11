@@ -15,7 +15,7 @@ class PasswordResetLinkController extends Controller
 {
     /**
      * Password reset link
-     * 
+     *
      * Handle an incoming password reset link request.
      *
      * @throws \Illuminate\Validation\ValidationException
