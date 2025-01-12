@@ -8,18 +8,17 @@ use App\Http\Requests\v1\StorePropertyRequest;
 use App\Http\Requests\v1\UpdatePropertyRequest;
 use App\Http\Resources\v1\PropertyResource;
 use App\Models\Property;
-use App\Services\Properties\PropertyRepositoryService;
+use App\Repositories\PropertyRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Spatie\QueryBuilder\QueryBuilder;
-use App\Repositories\PropertyRepository;
 use Illuminate\Support\Facades\Gate;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class PropertyController extends Controller
 {
     public function __construct()
     {
-        //the user needs to be logged in for these methods to be accessed
+        // the user needs to be logged in for these methods to be accessed
         $this->middleware('auth:api')->only('store', 'update');
     }
 
@@ -106,7 +105,7 @@ class PropertyController extends Controller
      */
     public function store(StorePropertyRequest $request, PropertyRepository $propertyRepository)
     {
-        //store the new property
+        // store the new property
         Gate::authorize('create', Property::class);
         $property = $propertyRepository->authUserCreateRequestProperty();
 
@@ -184,7 +183,7 @@ class PropertyController extends Controller
 
     /**
      * Update a property
-     * 
+     *
      * @throws \Illuminate\Auth\Access\AuthorizationException|\Illuminate\Auth\Access\AuthenticationException
      */
     public function update(UpdatePropertyRequest $request, Property $property, PropertyRepository $propertyRepository)

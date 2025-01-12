@@ -23,12 +23,12 @@ class PropertyRepository
         }
     }
 
-    public function authUserCreateRequestProperty() : Property
+    public function authUserCreateRequestProperty(): Property
     {
         return Property::create([...request()->only('name', 'status_id'), ...['owner_id' => auth()->user()->id]]);
     }
 
-    public function updateRequestProperty(Property $property) : void
+    public function updateRequestProperty(Property $property): void
     {
         $property->update(request()->only('name', 'status_id'));
     }

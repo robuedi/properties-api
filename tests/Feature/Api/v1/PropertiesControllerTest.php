@@ -250,7 +250,7 @@ it('fails to store wrong values for a property', function (): void {
 });
 
 it('requires to be authenticated to try to update a property', function (): void {
-    //make a property
+    // make a property
     $property = Property::factory()->create();
 
     // send request to update
@@ -263,7 +263,7 @@ it('requires to be authenticated to try to update a property', function (): void
 });
 
 it('requires to be autorized to update a property', function (): void {
-    //make a property
+    // make a property
     $property = Property::factory()->create();
 
     // send request to update
