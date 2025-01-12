@@ -11,14 +11,15 @@ use App\Models\Property;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Spatie\QueryBuilder\QueryBuilder;
-use App\Services\Properties\PropertyRepositoryService;
+use App\Repositories\PropertyRepository;
+use Illuminate\Support\Facades\Gate;
 
 class PropertyController extends Controller
 {
     public function __construct()
     {
         //the user needs to be logged in for these methods to be accessed
-        $this->middleware('auth:api')->only('store');
+        $this->middleware('auth:api')->only('store', 'update');
     }
 
     /**
@@ -102,10 +103,11 @@ class PropertyController extends Controller
      *
      * `slug` field is set automatically using the `name` field when the status is set to <b>active</b> (value 1). Once set it can't be changed.
      */
-    public function store(StorePropertyRequest $request, PropertyRepositoryService $propertyRepositoryService)
+    public function store(StorePropertyRequest $request, PropertyRepository $propertyRepository)
     {
         //store the new property
-        $property = $propertyRepositoryService->authUserRequestCreateProperty();
+        Gate::authorize('create', Property::class);
+        $property = $propertyRepository->authUserCreateRequestProperty();
 
         return response()
             ->json(['data' => [
@@ -181,10 +183,13 @@ class PropertyController extends Controller
 
     /**
      * Update a property
+     * 
+     * @throws \Illuminate\Auth\Access\AuthorizationException|\Illuminate\Auth\Access\AuthenticationException
      */
-    public function update(UpdatePropertyRequest $request, Property $property)
+    public function update(UpdatePropertyRequest $request, Property $property, PropertyRepository $propertyRepository)
     {
-        $property->update($request->only('name', 'status_id'));
+        Gate::authorize('update', $property);
+        $propertyRepository->updateRequestProperty(property: $property);
 
         return response([])->setStatusCode(Response::HTTP_NO_CONTENT);
     }

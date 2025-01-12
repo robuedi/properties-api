@@ -249,7 +249,34 @@ it('fails to store wrong values for a property', function (): void {
     ]);
 });
 
-it('updates a property', function (): void {
+it('requires to be authenticated to try to update a property', function (): void {
+    //make a property
+    $property = Property::factory()->create();
+
+    // send request to update
+    $response = $this->putJson(route('api.v1.properties.update', $property->id), [
+        'name' => 'Moon Villa',
+        'status_id' => PropertyStatus::Inactive->value,
+    ]);
+
+    $response->assertUnauthorized();
+});
+
+it('requires to be autorized to update a property', function (): void {
+    //make a property
+    $property = Property::factory()->create();
+
+    // send request to update
+    $anotherUser = User::factory()->create();
+    $response = $this->actingAs($anotherUser)->putJson(route('api.v1.properties.update', $property->id), [
+        'name' => 'Moon Villa',
+        'status_id' => PropertyStatus::Inactive->value,
+    ]);
+
+    $response->assertForbidden();
+});
+
+it('updates a property with only the allowed fields', function (): void {
     $user = User::factory()->create();
     $propertyData = [
         'name' => 'Sea Villa',
@@ -261,7 +288,7 @@ it('updates a property', function (): void {
 
     // send request to update
     $failUser = User::factory()->create();
-    $response = $this->putJson(route('api.v1.properties.update', $property->id), [
+    $response = $this->actingAs($user)->putJson(route('api.v1.properties.update', $property->id), [
         'id' => '5',
         'name' => 'Moon Villa',
         'owner_id' => $failUser->id,
@@ -282,7 +309,7 @@ it('updates a property', function (): void {
 it('returns 404 for update on a non-existing property', function (): void {
 
     $user = User::factory()->create();
-    $response = $this->putJson(route('api.v1.properties.update', 1), [
+    $response = $this->actingAs($user)->putJson(route('api.v1.properties.update', 1), [
         'name' => 'Moon Villa',
         'owner_id' => $user->id,
         'status_id' => PropertyStatus::Inactive->value,
