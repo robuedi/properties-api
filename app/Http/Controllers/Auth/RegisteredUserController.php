@@ -22,7 +22,7 @@ class RegisteredUserController extends Controller
      * Handle an incoming registration request.
      *
      * @throws \Illuminate\Validation\ValidationException
-     * 
+     *
      * @unauthenticated
      */
     public function register(Request $request): Response

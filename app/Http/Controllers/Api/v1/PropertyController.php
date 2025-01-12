@@ -8,6 +8,7 @@ use App\Http\Requests\v1\StorePropertyRequest;
 use App\Http\Requests\v1\UpdatePropertyRequest;
 use App\Http\Resources\v1\PropertyResource;
 use App\Models\Property;
+use App\Services\Properties\PropertyRepositoryService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Spatie\QueryBuilder\QueryBuilder;
