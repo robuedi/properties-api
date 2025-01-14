@@ -347,7 +347,6 @@ it('returns 401(unauthorized) when trying to delete a property without being aut
     $response->assertUnauthorized();
 });
 
-
 it('returns 403(forbidden) when trying to delete a property that is owned by a different user', function (): void {
     $property = Property::factory()->create();
     $user = User::factory()->create();

@@ -197,7 +197,7 @@ class PropertyController extends Controller
 
     /**
      * Delete a property
-     * 
+     *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Property $property)
