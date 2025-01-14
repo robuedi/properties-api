@@ -10,7 +10,7 @@ This project is the backend API for a properties renting app
 
 1. Clone repo + composer install vendors
 2. Install Laravel Sail + in terminal in repo base `sail up -d`
-3. Prepare the DB with: `sail artisan migrate:fresh` + ` sail artisan db:seed` + `sail artisan db:seed --class=FakerSeeder`
+3. Prepare the DB with: `sail artisan migrate:fresh` + ` sail artisan db:seed` and fake data for demo with `sail artisan db:seed --class=FakerSeeder`
 
 ## API Endpoints Docs
 
