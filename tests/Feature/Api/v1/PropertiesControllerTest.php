@@ -155,13 +155,11 @@ it('index properties right json for data', function (): void {
 });
 
 it('fails to stores a valid property when unautenticated (unauthorized:401)', function (): void {
-    $user = User::factory()->create();
-
     // send request to create
     $recordData = [
         'name' => 'Great Villa',
-        'owner_id' => $user->id,
-        'status_id' => fake()->randomElement(PropertyStatus::values()),
+        'owner_id' => 999,
+        'status_id' => 999,
     ];
     $response = $this->postJson(route('api.v1.properties.store'), $recordData);
 
@@ -250,11 +248,8 @@ it('fails to store wrong values for a property', function (): void {
 });
 
 it('requires to be authenticated to try to update a property', function (): void {
-    // make a property
-    $property = Property::factory()->create();
-
     // send request to update
-    $response = $this->putJson(route('api.v1.properties.update', $property->id), [
+    $response = $this->putJson(route('api.v1.properties.update', 999), [
         'name' => 'Moon Villa',
         'status_id' => PropertyStatus::Inactive->value,
     ]);
@@ -345,16 +340,41 @@ it('returns 404 for request to show a non-existing property', function (): void 
     $response->assertStatus(Response::HTTP_NOT_FOUND);
 });
 
-it('deletes a property', function (): void {
+it('returns 401(unauthorized) when trying to delete a property without being authenticated', function (): void {
+    // send request to delete
+    $response = $this->deleteJson(route('api.v1.properties.destroy', 999));
+
+    $response->assertUnauthorized();
+});
+
+
+it('returns 403(forbidden) when trying to delete a property that is owned by a different user', function (): void {
     $property = Property::factory()->create();
+    $user = User::factory()->create();
 
     // send request to delete
-    $response = $this->deleteJson(route('api.v1.properties.destroy', $property->id));
+    $response = $this->actingAs($user)->deleteJson(route('api.v1.properties.destroy', $property->id));
+
+    $response->assertForbidden();
+});
+
+it('deletes a property', function (): void {
+    $user = User::factory()->create();
+    $propertyData = [
+        'name' => 'Sea Villa',
+        'owner_id' => $user->id,
+        'status_id' => PropertyStatus::Active->value,
+    ];
+
+    $property = Property::factory()->create($propertyData);
+
+    // send request to delete
+    $response = $this->actingAs($user)->deleteJson(route('api.v1.properties.destroy', $property->id));
 
     $response->assertStatus(Response::HTTP_NO_CONTENT);
     $this->assertDatabaseMissing((new Property)->getTable(), ['id' => $property->id]);
 
     // send request to delete again
-    $response = $this->deleteJson(route('api.v1.properties.destroy', $property->id));
+    $response = $this->actingAs($user)->deleteJson(route('api.v1.properties.destroy', $property->id));
     $response->assertStatus(Response::HTTP_NOT_FOUND);
 });

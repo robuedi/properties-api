@@ -19,7 +19,8 @@ class PropertyController extends Controller
     public function __construct()
     {
         // the user needs to be logged in for these methods to be accessed
-        $this->middleware('auth:api')->only('store', 'update');
+        // if not authenticated he'll receive a 401/unauthorized before reaching the method, thus avoiding unnecessary model binding, validations...
+        $this->middleware('auth:api')->only('store', 'update', 'destroy');
     }
 
     /**
@@ -99,7 +100,7 @@ class PropertyController extends Controller
     }
 
     /**
-     * Store a new property
+     * Store a property
      *
      * `slug` field is set automatically using the `name` field when the status is set to <b>active</b> (value 1). Once set it can't be changed.
      */
@@ -184,7 +185,7 @@ class PropertyController extends Controller
     /**
      * Update a property
      *
-     * @throws \Illuminate\Auth\Access\AuthorizationException|\Illuminate\Auth\Access\AuthenticationException
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(UpdatePropertyRequest $request, Property $property, PropertyRepository $propertyRepository)
     {
@@ -195,10 +196,13 @@ class PropertyController extends Controller
     }
 
     /**
-     * Remove a property
+     * Delete a property
+     * 
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Property $property)
     {
+        Gate::authorize('delete', $property);
         $property->delete();
 
         return response([])->setStatusCode(Response::HTTP_NO_CONTENT);
