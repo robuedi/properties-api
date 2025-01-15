@@ -100,7 +100,7 @@ class PropertyController extends Controller
     }
 
     /**
-     * Store a property
+     * Store property
      *
      * `slug` field is set automatically using the `name` field when the status is set to <b>active</b> (value 1). Once set it can't be changed.
      */
@@ -118,7 +118,7 @@ class PropertyController extends Controller
     }
 
     /**
-     * Show a property
+     * Show property
      *
      * @unauthenticated
      */
@@ -181,7 +181,7 @@ class PropertyController extends Controller
     }
 
     /**
-     * Update a property
+     * Update property
      *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -194,7 +194,7 @@ class PropertyController extends Controller
     }
 
     /**
-     * Delete a property
+     * Delete property
      *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
