@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
-use App\Models\Country;
-use Illuminate\Http\Request;
 use App\Http\Requests\GenericListingRequest;
 use App\Http\Resources\v1\CountryResource;
-use Spatie\QueryBuilder\QueryBuilder; 
+use App\Models\Country;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class CountryController extends Controller
 {
@@ -35,7 +35,6 @@ class CountryController extends Controller
              */
             'filter[name]' => 'string',
 
-
             /**
              * Filter name
              *
@@ -51,7 +50,7 @@ class CountryController extends Controller
             ->allowedFields([
                 'id',
                 'name',
-                'code'
+                'code',
             ])
             ->defaultSort('name')
             ->allowedFilters(['name', 'code'])
@@ -64,7 +63,7 @@ class CountryController extends Controller
 
     /**
      * Show country
-     * 
+     *
      * @unauthenticated
      */
     public function show(Request $request, int $country)
@@ -100,7 +99,7 @@ class CountryController extends Controller
                 'code',
                 'cities.id',
                 'cities.name',
-                'cities.country_id'
+                'cities.country_id',
             ])
             ->allowedIncludes(['cities'])
             ->findOrFail($country);

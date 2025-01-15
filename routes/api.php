@@ -8,6 +8,6 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
     Route::apiResource('properties', PropertyController::class);
 
     Route::resource('countries', CountryController::class)->only([
-        'index', 'show'
+        'index', 'show',
     ]);
 });
