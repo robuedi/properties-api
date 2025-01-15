@@ -154,8 +154,7 @@ class PropertyController extends Controller
             'fields[addresses]' => 'string',
         ]);
 
-        $property = QueryBuilder::for(Property::class)
-            ->where('id', $property)
+        $propertyItem = QueryBuilder::for(Property::class)
             ->select('id', 'name', 'slug', 'status_id', 'owner_id')
             ->allowedFields([
                 'id',
@@ -175,11 +174,10 @@ class PropertyController extends Controller
                 'addresses.address_line',
                 'addresses.property_id',
             ])
-            ->defaultSort('-created_at')
             ->allowedIncludes(['owner', 'address', 'address.city', 'address.city.country'])
-            ->firstOrFail();
+            ->findOrFail($property);
 
-        return PropertyResource::make($property)->response()->setStatusCode(Response::HTTP_OK);
+        return PropertyResource::make($propertyItem)->response()->setStatusCode(Response::HTTP_OK);
     }
 
     /**

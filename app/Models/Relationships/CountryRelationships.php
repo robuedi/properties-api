@@ -9,6 +9,6 @@ trait CountryRelationships
 {
     public function cities(): HasMany
     {
-        return $this->hasMany(City::class);
+        return $this->hasMany(City::class, 'country_id', 'id');
     }
 }
