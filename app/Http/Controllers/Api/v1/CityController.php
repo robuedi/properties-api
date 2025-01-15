@@ -6,16 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\GenericListingRequest;
 use App\Http\Resources\v1\CityResource;
 use App\Models\City;
-use Illuminate\Http\Response;
 use Illuminate\Http\Request;
-use Spatie\QueryBuilder\QueryBuilder;
+use Illuminate\Http\Response;
 use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class CityController extends Controller
 {
     /**
      * List cities.
-     * 
+     *
      * @unauthenticated
      */
     public function index(GenericListingRequest $request)
@@ -51,7 +51,7 @@ class CityController extends Controller
             ->allowedFields([
                 'id',
                 'name',
-                'country_id'
+                'country_id',
             ])
             ->defaultSort('name')
             ->allowedFilters(['name', AllowedFilter::exact('country_id')])
@@ -64,7 +64,7 @@ class CityController extends Controller
 
     /**
      * Show city.
-     * 
+     *
      * @unauthenticated
      */
     public function show(Request $request, int $city)

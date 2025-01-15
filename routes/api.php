@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Api\v1\CountryController;
 use App\Http\Controllers\Api\v1\CityController;
+use App\Http\Controllers\Api\v1\CountryController;
 use App\Http\Controllers\Api\v1\PropertyController;
 use Illuminate\Support\Facades\Route;
 

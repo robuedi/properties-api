@@ -20,26 +20,26 @@ it('index cities right json for data', function (): void {
             ],
         ],
         'links' => [
-            'first' ,
-            'last' ,
+            'first',
+            'last',
             'prev',
-            'next' ,
+            'next',
         ],
         'meta' => [
-            'current_page' ,
-            'from' ,
+            'current_page',
+            'from',
             'last_page',
             'links' => [
                 '*' => [
                     'url',
                     'label',
-                    'active'
-                ]
+                    'active',
+                ],
             ],
             'path',
             'per_page',
             'to',
-            'total'
+            'total',
         ],
     ]);
 });
@@ -55,8 +55,8 @@ it('shows a cities with country', function (): void {
             'country' => [
                 'id' => 182,
                 'name' => 'Romania',
-                'code' => 'RO'
+                'code' => 'RO',
             ],
         ],
-    ]);
+        ]);
 });
