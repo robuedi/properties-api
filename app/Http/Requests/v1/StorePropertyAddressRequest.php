@@ -23,7 +23,7 @@ class StorePropertyAddressRequest extends FormRequest
     {
         return [
             'city_id' => 'required|exists:cities,id',
-            'address_line' => 'string'
+            'address_line' => 'string',
         ];
     }
 }

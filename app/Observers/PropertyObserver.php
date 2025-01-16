@@ -3,8 +3,8 @@
 namespace App\Observers;
 
 use App\Models\Property;
-use App\Repositories\PropertyRepository;
 use App\Models\PropertyAddress;
+use App\Repositories\PropertyRepository;
 
 class PropertyObserver
 {
@@ -23,7 +23,7 @@ class PropertyObserver
      */
     public function deleted(Property $property): void
     {
-        //clean the property address, if there was one
+        // clean the property address, if there was one
         (PropertyAddress::find($property->id))?->delete();
     }
 }

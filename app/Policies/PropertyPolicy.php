@@ -2,9 +2,9 @@
 
 namespace App\Policies;
 
+use App\Enums\PropertyStatus;
 use App\Models\Property;
 use App\Models\User;
-use App\Enums\PropertyStatus;
 
 class PropertyPolicy
 {

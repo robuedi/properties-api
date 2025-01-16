@@ -4,20 +4,17 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\v1\StorePropertyAddressRequest;
-use App\Http\Requests\v1\UpdatePropertyAddressRequest;
-use App\Models\PropertyAddress;
-use App\Models\Property;
-use Illuminate\Http\Response;
 use App\Http\Resources\v1\PropertyAddressResource;
-use Illuminate\Support\Facades\Gate;
+use App\Models\Property;
 use App\Repositories\PropertyAddressRepository;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
 
 class PropertyAddressController extends Controller
 {
     public function __construct(
         private PropertyAddressRepository $propertyAddressRepository
-    )
-    {
+    ) {
         // the user needs to be logged in for these methods to be accessed
         $this->middleware('auth:api')->only('show', 'update', 'store', 'destroy');
     }
@@ -29,12 +26,11 @@ class PropertyAddressController extends Controller
     {
         Gate::authorize('view', $property);
 
-        //load address
+        // load address
         $property->load('address');
 
-        //check if address exists
-        if(!$property->address)
-        {
+        // check if address exists
+        if (! $property->address) {
             abort(404);
         }
 
@@ -49,7 +45,7 @@ class PropertyAddressController extends Controller
         Gate::authorize('update', $property);
 
         $this->propertyAddressRepository->createPropertyAddressRequest(property: $property);
-        
+
         return response([])->setStatusCode(Response::HTTP_NO_CONTENT);
     }
 

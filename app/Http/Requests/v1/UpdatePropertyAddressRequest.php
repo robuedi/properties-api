@@ -23,7 +23,7 @@ class UpdatePropertyAddressRequest extends FormRequest
     {
         return [
             'city_id' => 'exists:cities,id',
-            'address_line' => 'string'
+            'address_line' => 'string',
         ];
     }
 }
