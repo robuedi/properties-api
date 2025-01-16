@@ -120,10 +120,12 @@ class PropertyController extends Controller
     /**
      * Show property
      *
-     * @unauthenticated
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function show(Request $request, int $property)
+    public function show(Request $request, Property $property)
     {
+        Gate::authorize('view', $property);
+
         $request->validate([
             /**
              * Relationships.
@@ -175,7 +177,7 @@ class PropertyController extends Controller
                 'addresses.property_id',
             ])
             ->allowedIncludes(['owner', 'address', 'address.city', 'address.city.country'])
-            ->findOrFail($property);
+            ->findOrFail($property->id);
 
         return PropertyResource::make($propertyItem)->response()->setStatusCode(Response::HTTP_OK);
     }

@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\Property;
 use App\Repositories\PropertyRepository;
+use App\Models\PropertyAddress;
 
 class PropertyObserver
 {
@@ -15,5 +16,14 @@ class PropertyObserver
     public function saving(Property $property): void
     {
         $this->propertyRepository->setSlugProperty(property: $property);
+    }
+
+    /**
+     * Handle the User "deleted" event.
+     */
+    public function deleted(Property $property): void
+    {
+        //clean the property address, if there was one
+        (PropertyAddress::find($property->id))?->delete();
     }
 }

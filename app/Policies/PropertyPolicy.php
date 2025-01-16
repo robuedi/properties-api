@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\Property;
 use App\Models\User;
+use App\Enums\PropertyStatus;
 
 class PropertyPolicy
 {
@@ -20,7 +21,7 @@ class PropertyPolicy
      */
     public function view(User $user, Property $property): bool
     {
-        return false;
+        return $property->status_id === PropertyStatus::Active || $user->id === $property->owner_id;
     }
 
     /**

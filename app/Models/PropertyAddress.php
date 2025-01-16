@@ -11,4 +11,14 @@ class PropertyAddress extends Model
     use HasFactory, PropertyAddressRelationships;
 
     protected $table = 'property_addresses';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var list<string>
+     */
+    protected $fillable = [
+        'city_id',
+        'address_line',
+    ];
 }
