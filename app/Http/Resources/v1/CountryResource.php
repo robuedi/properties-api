@@ -20,8 +20,6 @@ class CountryResource extends JsonResource
             'name' => $this->whenHas('name'),
             'code' => $this->whenHas('code'),
             'cities' => $this->whenLoaded('cities', function () {
-                Log::info($this->cities);
-
                 return CountryResource::collection($this->cities);
             }),
         ];

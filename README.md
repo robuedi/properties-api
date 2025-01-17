@@ -15,7 +15,7 @@ This project is the backend API for a properties renting app
 ## API Endpoints Docs
 
 Your local API Docs URL [here](http://localhost/docs/api#/)
-![Properties API](/readme/api-docs.png)
+![Properties API](/readme/docs.png)
 
 ## Test cases
 

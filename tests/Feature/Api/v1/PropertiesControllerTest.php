@@ -313,7 +313,7 @@ it('returns 404 for update on a non-existing property', function (): void {
     $response->assertStatus(Response::HTTP_NOT_FOUND);
 });
 
-it('shows a property', function (): void {
+it('shows an active property without being authenticated', function (): void {
     $user = User::factory()->create();
     $propertyData = [
         'name' => 'Sea Villa',
