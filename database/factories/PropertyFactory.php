@@ -6,6 +6,7 @@ use App\Enums\PropertyStatus;
 use App\Models\Property;
 use App\Models\PropertyAddress;
 use App\Models\User;
+use Log;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -27,7 +28,7 @@ class PropertyFactory extends Factory
         ];
     }
 
-    public function configure(): static
+    public function withAddress(): static
     {
         return $this->afterMaking(function (Property $property) {
             PropertyAddress::factory()->make(['property_id' => $property->id]);

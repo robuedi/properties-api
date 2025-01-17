@@ -19,9 +19,9 @@ class PropertyPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Property $property): bool
+    public function view(?User $user, Property $property): bool
     {
-        return $property->status_id === PropertyStatus::Active || $user->id === $property->owner_id;
+        return $property->status_id === PropertyStatus::Active || $user?->id === $property->owner_id;
     }
 
     /**

@@ -331,7 +331,61 @@ it('shows an active property without being authenticated', function (): void {
             ...['id' => $property->id],
             ...$propertyData],
         ]
-        );
+    );
+});
+
+it('doesn\'t shows an inactive property without being authenticated', function (): void {
+    $user = User::factory()->create();
+    $propertyData = [
+        'name' => 'Sea Villa',
+        'owner_id' => $user->id,
+        'status_id' => PropertyStatus::Inactive->value,
+    ];
+
+    $property = Property::factory()->create($propertyData);
+
+    // send request to show
+    $response = $this->getJson(route('api.v1.properties.show', $property->id));
+
+    $response->assertForbidden();
+});
+
+it('doesn\'t shows an inactive property without being authenticated and the user that owns it', function (): void {
+    $user = User::factory()->create();
+    $propertyData = [
+        'name' => 'Sea Villa',
+        'owner_id' => $user->id,
+        'status_id' => PropertyStatus::Inactive->value,
+    ];
+
+    $property = Property::factory()->create($propertyData);
+
+    // send request to show
+    $checkingUser = User::factory()->create();
+    $response = $this->actingAs($checkingUser)->getJson(route('api.v1.properties.show', $property->id));
+
+    $response->assertForbidden();
+});
+
+it('shows an inactive property to the owner', function (): void {
+    $user = User::factory()->create();
+    $propertyData = [
+        'name' => 'Sea Villa',
+        'owner_id' => $user->id,
+        'status_id' => PropertyStatus::Inactive->value,
+    ];
+
+    $property = Property::factory()->create($propertyData);
+
+    // send request to show
+    $response = $this->actingAs($user)->getJson(route('api.v1.properties.show', $property->id));
+
+    $response->assertStatus(Response::HTTP_OK)
+        ->assertJson(['data' => [
+            ...['id' => $property->id],
+            ...$propertyData],
+        ]
+    );
 });
 
 it('returns 404 for request to show a non-existing property', function (): void {
