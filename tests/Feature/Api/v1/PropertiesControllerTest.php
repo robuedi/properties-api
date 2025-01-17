@@ -331,7 +331,7 @@ it('shows an active property without being authenticated', function (): void {
             ...['id' => $property->id],
             ...$propertyData],
         ]
-    );
+        );
 });
 
 it('doesn\'t shows an inactive property without being authenticated', function (): void {
@@ -385,7 +385,7 @@ it('shows an inactive property to the owner', function (): void {
             ...['id' => $property->id],
             ...$propertyData],
         ]
-    );
+        );
 });
 
 it('returns 404 for request to show a non-existing property', function (): void {
