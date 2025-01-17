@@ -6,7 +6,6 @@ use App\Enums\PropertyStatus;
 use App\Models\Property;
 use App\Models\PropertyAddress;
 use App\Models\User;
-use Log;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
