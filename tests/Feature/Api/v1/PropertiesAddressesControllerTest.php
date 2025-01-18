@@ -145,9 +145,9 @@ it('updates the address for the property', function (): void {
 it('return 404 when trying to update an address for a non existing property', function (): void {
     $response = $this->actingAs(User::factory()->create())
         ->postJson(route('api.v1.properties.address.store', ['property' => 1]), [
-        'city_id' => 1,
-        'address_line' => 'Test Street, nr. 1',
-    ]);
+            'city_id' => 1,
+            'address_line' => 'Test Street, nr. 1',
+        ]);
 
     $response->assertStatus(404);
 });
@@ -165,8 +165,8 @@ it('returns 404 and correct message when trying to update a missing property add
     $response->assertStatus(404);
     $response->assertHeader('Content-Type', 'application/json');
     $response->assertJson([
-            'message' => 'Address not found for the specified property.',
-        ],
+        'message' => 'Address not found for the specified property.',
+    ],
     );
 });
 
@@ -211,7 +211,6 @@ it('returns 403/forbidden when showing the address of an inactive property witho
 
     $response->assertForbidden();
 });
-
 
 it('returns 403/forbidden when showing the address of an inactive property while authenticated, but not as the owner', function (): void {
     $property = Property::factory()->withAddress()->create([
