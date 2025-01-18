@@ -16,7 +16,7 @@ class PropertyAddressController extends Controller
         private PropertyAddressRepository $propertyAddressRepository
     ) {
         // the user needs to be logged in for these methods to be accessed
-        $this->middleware('auth:api')->only('show', 'update', 'store', 'destroy');
+        $this->middleware('auth:api')->only('update', 'store', 'destroy');
     }
 
     /**
@@ -31,7 +31,7 @@ class PropertyAddressController extends Controller
 
         // check if address exists
         if (! $property->address) {
-            abort(404);
+            abort(404, 'Address not found for the specified property.');
         }
 
         return PropertyAddressResource::make($property->address)->response()->setStatusCode(Response::HTTP_OK);

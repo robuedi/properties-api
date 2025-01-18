@@ -27,7 +27,7 @@ class PropertyAddressRepository
 
         // check if address exists
         if (! $property->address) {
-            abort(404);
+            abort(404, 'Address not found for the specified property.');
         }
         $property->address->update(request()->only('city_id', 'address_line'));
     }
@@ -39,7 +39,7 @@ class PropertyAddressRepository
 
         // check if address exists
         if (! $property->address) {
-            abort(404);
+            abort(404, 'Address not found for the specified property.');
         }
 
         $property->address->delete();
