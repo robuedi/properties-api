@@ -5,6 +5,8 @@
 
 
 This project is the backend API for a properties renting app
+Objectives:
+- make use of JWT authentication (more info about JWT at this <a = href="https://medium.com/@extio/understanding-json-web-tokens-jwt-a-secure-approach-to-web-authentication-f551e8d66deb">link</a>)
 
 ## Setup
 
