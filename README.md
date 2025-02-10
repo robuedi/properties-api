@@ -7,9 +7,9 @@
 This project is the backend API for a properties renting app
 
 ## Project's objectives:
-- make use of Scramble library to automatically generate the API documentation (more info about Scramble <a target="_blank" href="https://scramble.dedoc.co/">here</a>)
-- combine Spatie Query Builder library with the Scramble library (more info about Spatie Query Builder <a target="_blank" href="https://spatie.be/docs/laravel-query-builder/">here</a>)
-- make use of stateless JWT authentication (more info about JWT <a target="_blank" href="https://medium.com/@extio/understanding-json-web-tokens-jwt-a-secure-approach-to-web-authentication-f551e8d66deb">here</a>)
+- make use of the Scramble library to automatically generate the API documentation (more info about Scramble <a target="_blank" href="https://scramble.dedoc.co/">here</a>)
+- combine the Spatie Query Builder library with the Scramble library (more info about Spatie Query Builder <a target="_blank" href="https://spatie.be/docs/laravel-query-builder/">here</a>)
+- make use of the stateless JWT authentication (more info about JWT <a target="_blank" href="https://medium.com/@extio/understanding-json-web-tokens-jwt-a-secure-approach-to-web-authentication-f551e8d66deb">here</a>)
 
 ## Setup
 
